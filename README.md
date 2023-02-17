@@ -68,3 +68,25 @@ add elastic-agent
 ```bash
 kubectl apply -f 05.elastic-agent.yaml
 ```
+## Upgrade the cluster
+
+change version in every yaml file from `8.5.0` to `8.6.1`
+
+## More Configuration
+
+### Persistent Volume
+this deployment doesn't have a persistent data. If you delete the cluster, the data will be deleted along with the cluster. To retain the data you need to specify volumeClaim from Kubernetes 
+
+you can add this configuration on `01.elastic-deployment.yaml` in line 12
+```yaml
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: standard
+```
