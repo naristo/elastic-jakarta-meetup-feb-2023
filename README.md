@@ -40,6 +40,21 @@ spec:
     name: my-elastic
 EOF
 ```
+## Login to Kibana
+
+get elastic password
+
+```
+kubectl get secret/es-meetup-es-elastic-user --template={{.data.elastic}} | base64 
+```
+
+get Kibana IP
+
+```
+kubectl get pod -o wide
+kubectl get svc/kibana-kb-http --no-headers | awk '{print $4}'
+```
+
 
 ## Scaling Out Elasticsearch
 
